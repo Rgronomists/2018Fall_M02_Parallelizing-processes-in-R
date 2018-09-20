@@ -1,6 +1,6 @@
 ##Change this if you are using this for a server, where the packages are installed on your command line
-r_package_loc <- "C:/Users/mdzievit.IASTATE/AppData/Local/Temp/RtmpMjvkCD/downloaded_packages"
-#r_package_loc <- NULL
+#r_package_loc <- 
+r_package_loc <- NULL
 
 
 ##These are the necessary libraries that we use. I foud that R on our server didn't like the library(tidyverse), 
@@ -15,17 +15,17 @@ for(p in requiredPackages){
 }
 
 ##This loads the training data. It is a matrix of indviduals x SNP markers
-gen_train <- fread("Training_Imputed_Subset.rrblup")
+gen_train <- fread("Script-Example/Training_Imputed_Subset.rrblup")
 gen_train <- as.matrix(gen_train)
 
 ##This is key that tracks the individual name with the marker data. This is important for tracking the
 ##phenotype data for each invidual
-genID <- read_tsv("Training_Imputed.012.indv",
+genID <- read_tsv("Script-Example/Training_Imputed.012.indv",
                   col_names = FALSE) %>% 
   rename(Genotype = 'X1') %>% 
   mutate(Gen_Ord = row_number())
 
-phenotypes <- read_tsv("BLUPs.txt") %>% 
+phenotypes <- read_tsv("Script-Example/BLUPs.txt") %>% 
   mutate(Genotype = toupper(Genotype)) %>% 
   mutate(Genotype = case_when(
     Genotype == "W22_R-RSTD" ~ "W22R-R-STD_CS-2909-1",
@@ -134,6 +134,6 @@ kfold_out <- foreach(i = 1:nrow(kfold),
 stopCluster(cl)
 
 ##Write the output
-write_tsv(path = "Results.txt",
+write_tsv(path = "Script-Example/Results.txt",
           x = as.tibble(kfold_out))
 

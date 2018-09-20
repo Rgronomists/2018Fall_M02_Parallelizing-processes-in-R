@@ -139,7 +139,7 @@ $(document).ready(function () {
 <div id="package-install-and-loading-then-session-info" class="section level3">
 <h3>1. Package install and loading, then session info</h3>
 <pre class="r"><code>##Change this if you are using this for a server, where the packages are installed on your command line
-#r_package_loc &lt;- &quot;C:/Users/mdzievit.IASTATE/AppData/Local/Temp/RtmpMjvkCD/downloaded_packages&quot;
+#r_package_loc &lt;- 
 r_package_loc &lt;- NULL
 
 
@@ -216,7 +216,7 @@ print(sessionInfo())</code></pre>
 <div id="loading-the-genotypic-data-for-training" class="section level3">
 <h3>2. Loading the genotypic data for training</h3>
 <pre class="r"><code>##This loads the training data. It is a matrix of indviduals x SNP markers
-gen_train &lt;- fread(&quot;Training_Imputed_Subset.rrblup&quot;)
+gen_train &lt;- fread(&quot;Script-Example/Training_Imputed_Subset.rrblup&quot;)
 gen_train &lt;- as.matrix(gen_train)
 head(gen_train) [1:5,1:5]</code></pre>
 <pre><code>##      V1 V2 V3 V4 V5
@@ -227,7 +227,7 @@ head(gen_train) [1:5,1:5]</code></pre>
 ## [5,] -1 -1 -1 -1 -1</code></pre>
 <pre class="r"><code>##This is key that tracks the individual name with the marker data. This is important for tracking the
 ##phenotype data for each invidual
-genID &lt;- read_tsv(&quot;Training_Imputed.012.indv&quot;,
+genID &lt;- read_tsv(&quot;Script-Example/Training_Imputed.012.indv&quot;,
                   col_names = FALSE) %&gt;% 
   rename(Genotype = 'X1') %&gt;% 
   mutate(Gen_Ord = row_number())</code></pre>
@@ -247,7 +247,7 @@ genID &lt;- read_tsv(&quot;Training_Imputed.012.indv&quot;,
 </div>
 <div id="loading-the-phenotypic-data-for-the-training" class="section level3">
 <h3>3. Loading the phenotypic data for the training</h3>
-<pre class="r"><code>phenotypes &lt;- read_tsv(&quot;BLUPs.txt&quot;) %&gt;% 
+<pre class="r"><code>phenotypes &lt;- read_tsv(&quot;Script-Example/BLUPs.txt&quot;) %&gt;% 
   mutate(Genotype = toupper(Genotype)) %&gt;% 
   mutate(Genotype = case_when(
     Genotype == &quot;W22_R-RSTD&quot; ~ &quot;W22R-R-STD_CS-2909-1&quot;,
@@ -539,16 +539,16 @@ head(kfold_out)[1:5,1:4]</code></pre>
 <pre><code>## # A tibble: 5 x 4
 ##   Rep   Fold  Trait          Cor              
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;            
-## 1 1     2     20KernelWeight 0.413560966739355
-## 2 2     2     20KernelWeight 0.378925753515875
-## 3 1     2     CobDiameter    0.317982744681254
-## 4 2     2     CobDiameter    0.249376520492812
-## 5 1     2     CobWeight      0.44260337780057</code></pre>
+## 1 1     2     20KernelWeight 0.377220265916351
+## 2 2     2     20KernelWeight 0.374282575241553
+## 3 1     2     CobDiameter    0.307397543249209
+## 4 2     2     CobDiameter    0.351476943747676
+## 5 1     2     CobWeight      0.261114827992874</code></pre>
 </div>
 <div id="output-the-results" class="section level3">
 <h3>8. Output the results</h3>
 <pre class="r"><code>##Write the output
-write_tsv(path = &quot;Results.txt&quot;,
+write_tsv(path = &quot;Script-Example/Results.txt&quot;,
           x = kfold_out)</code></pre>
 </div>
 

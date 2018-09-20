@@ -3,8 +3,8 @@ title: "Parallel Computing Example"
 author: "Matt Dzievit"
 date: "Rgronimst Presentation - September 21, 2018"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 editor_options:
   chunk_output_type: inline
 ---
@@ -18,7 +18,7 @@ Data is all publically available (after some cleanup and configuring - wait for 
 ### 1. Package install and loading, then session info
 ```{r, Package install and loading, session info}
 ##Change this if you are using this for a server, where the packages are installed on your command line
-#r_package_loc <- "C:/Users/mdzievit.IASTATE/AppData/Local/Temp/RtmpMjvkCD/downloaded_packages"
+#r_package_loc <- 
 r_package_loc <- NULL
 
 
@@ -40,13 +40,13 @@ print(sessionInfo())
 ### 2. Loading the genotypic data for training
 ```{r,Load training genotype data}
 ##This loads the training data. It is a matrix of indviduals x SNP markers
-gen_train <- fread("Training_Imputed_Subset.rrblup")
+gen_train <- fread("Script-Example/Training_Imputed_Subset.rrblup")
 gen_train <- as.matrix(gen_train)
 head(gen_train) [1:5,1:5]
 
 ##This is key that tracks the individual name with the marker data. This is important for tracking the
 ##phenotype data for each invidual
-genID <- read_tsv("Training_Imputed.012.indv",
+genID <- read_tsv("Script-Example/Training_Imputed.012.indv",
                   col_names = FALSE) %>% 
   rename(Genotype = 'X1') %>% 
   mutate(Gen_Ord = row_number())
@@ -57,7 +57,7 @@ print(head(genID)[1:5,1:2])
 
 ### 3. Loading the phenotypic data for the training
 ```{r, Load phenotypic data}
-phenotypes <- read_tsv("BLUPs.txt") %>% 
+phenotypes <- read_tsv("Script-Example/BLUPs.txt") %>% 
   mutate(Genotype = toupper(Genotype)) %>% 
   mutate(Genotype = case_when(
     Genotype == "W22_R-RSTD" ~ "W22R-R-STD_CS-2909-1",
@@ -191,6 +191,6 @@ head(kfold_out)[1:5,1:4]
 ### 8. Output the results
 ```{r, Output results}
 ##Write the output
-write_tsv(path = "Results.txt",
+write_tsv(path = "Script-Example/Results.txt",
           x = kfold_out)
 ```
