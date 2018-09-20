@@ -28,6 +28,8 @@ Rgronomist meeting
 
 ### 4. Running the pipeline line by line
 
+- First start a new project in Rstudio, use an existing directory (folder that contains all the files you downloaded from github)
+
 - See ```Script-Example/Cross-Validation_Example.r```
 
 ### 5. Running the pipeline from command line or terminal
